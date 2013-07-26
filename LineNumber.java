@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class LineNumber {
 
   private String myNumber;
@@ -9,6 +11,9 @@ public class LineNumber {
 	}
 
 	public LineNumber nextlinenumber_helper(String op, Expression provenExpr){
+		
+		int index; // Used for finding '.' in old LineNumber
+		
 		// @line is the next proof line, read from InputSource
 		// This will return myNumber + 1 if line does not include "show"
 		// or the line does not prove a previous "show"s expression
@@ -24,24 +29,24 @@ public class LineNumber {
 		
 		// if the operation is "print", do nothing
 		if (op.equals("print")) {
-			return myNumber;
+			return new LineNumber(myNumber);
 		}
 		
 		// if the operation is "show", then we are entering a subproof
 		if (op.equals("show")) {
 			expr.push(provenExpr); //changed to add the expr to the stack rather than the op
 			myNumber = myNumber + ".1"; // 1 becomes 1.1
-			return myNumber;
+			return new LineNumber(myNumber);
 		}
 		// if the operation proves the expression we are trying to show, exit the subproof
 		if (op.equals("ic") || op.equals("mp") || op.equals("co") || op.equals("mt")) {
 			// If the last expression to be shown is proven in this line, end the subproof
 			if (expr.pop().isProven()) {
-				int index;
+				
 				// Find the rightmost decimal and remove it and all that follows it
 				// i.e. 3.2.1 --> 3.2
-				for (int i = myNumber.length; i >= 0; i--) {  // 3.2.3
-					if (myNumber.get(i).equals(".")) {
+				for (int i = myNumber.length(); i >= 0; i--) {  // 3.2.3
+					if (myNumber.charAt(i) == '.') {
 						index = i;
 						break;
 					}
@@ -50,15 +55,15 @@ public class LineNumber {
 				// increment the number following the rightmost decimal
 				// 3.2 --> 3.3
 				// Find the new rightmost decimal
-				for (int i = myNumber.length; i >= 0; i--) {
-					if (myNumber.get(i).equals(".")) {
+				for (int i = myNumber.length(); i >= 0; i--) {
+					if (myNumber.charAt(i) == '.') {
 						index = i;
 						break;
 					}
 				}
 				// Convert the string to the right of the rightmost decimal to an integer
 				// increment it, convert it back to a string and concatenate to myNumber
-				int newRight = Integer.parseInt(myNumber.substring(index + 1, myNumber.length)) + 1; // newRight = "3"
+				int newRight = Integer.parseInt(myNumber.substring(index + 1, myNumber.length())) + 1; // newRight = "3"
 				myNumber = myNumber.substring(0, index + 1) + newRight.toString(); // myNumber.substring(0, index + 1) = "3."
                 // myNumber = "3.3"
 
@@ -67,8 +72,8 @@ public class LineNumber {
 		else {
 			// Increment the digit(s) following the last decimal of myNumber if it has one
 			if (myNumber.contains(".")) {
-				for (int i = myNumber.length; i >= 0; i--) {
-						if (myNumber.get(i).equals(".")) {
+				for (int i = myNumber.length(); i >= 0; i--) {
+						if (myNumber.charAt(i) == '.') {
 							index = i;
 							break;
 						}
@@ -83,7 +88,7 @@ public class LineNumber {
 				myNumber = (Integer.parseInt(myNumber) + 1).toString();
 			}
 		}
-		return myNumber;
+		return new LineNumber(myNumber);
 
 	}
 
