@@ -1,0 +1,96 @@
+// I got 99 problems but code aint one
+// if you havin syntax problems i feel bad for you son
+
+ASSUME
+conditions for assume expr:
+  1) assume must follow show
+	2) expr must be the negation of the preceding show's expr or the left side of
+	   the preceding show's implication
+	   Ex.:
+	   show (p=>z)
+	   assume p    // valid
+	   assume ~p // invalid
+	   
+	   Ex.:
+	   show a
+	   assume ~a // valid
+	   assume b // invalid
+	
+USER INPUT   
+there are two valid patterns for user input.
+they are:
+
+	print // alone on line
+	<reason> <expr(s)> // <expr(s)> might be multiple expressions separated
+					   // by whitespace
+					   
+	valid reason syntax:
+		show <expr>
+		assume <expr> // see above for special assume conditions
+					  // there must be a white space between assume and <expr>
+		<mp/mt/co> <line #> <line #>
+				      // there must be a white space between the reason and
+				      // each line #
+		<ic/repeat> <line #>
+		<theorem> <line #>
+					  // <theorem> is only valid if TheoremSet contains it
+					  // <theorem> CANNOT be one of "print", "show", "assume", 
+					  	 "mp", "mt", "co", "ic", or "repeat"
+					  
+	REQUIREMENTS FOR <line #> (see above for where <line #> is used):
+		<line #> must refer to a line label already used
+		
+		because inferences are not allowed to refer to the INTERIOR steps of a
+		previous subproof, valid line #'s are NEVER longer than the current line,
+		and you can only reference a subroutine line number of the same section
+		
+		Ex.:
+			current line #: 3.2.4
+			valid line references: 1, 2, 3.1, 3.2.1, 3.2.2, 3.2.3
+			invalid example: 3.2.1 (<-- part of a different subproof!)
+			
+	VALID EXPRESSION SYNTAX:
+		a variable (lower-case letter) is an expression
+		
+		if E is an expression, ~E is an expression
+	
+		if E1 and E2 are expressions, (then E1&E2) and (E1|E2) are expressions
+		
+		if E1 and E2 are expressions, then (E1=>E2) is an expression 
+		
+		These statements can build on one another to form compound expressions.
+		
+		CONDITIONS:
+			Expressions CANNOT contain whitespace
+			
+			Expressions MUST enclose all use of logical operators (&, |, =>) with
+			parentheses!
+			
+LINE NUMBER REQUIREMENTS:
+	
+	LINE CONTINUATION:
+		case 1:
+			Immediately following a "show", the line number is the line number of the "show"
+			with a ".1" appended.
+			Subsequent lines continue with ".2", ".3", etc. until another "show", which
+			initiates another subproof
+			
+		case 2:
+			a step is given ON THE SAME LEVEL AS THE "show",
+			in which the inferred expression is equal to show's operand.
+			Line numbering then continues with the number after the "show"'s line number.
+			
+		SPECIAL CASE:
+			the line number immediately following line 1 (a "show" reason) is 2.
+			
+VALID ASSUMPTIONS:
+	the file of theorems named in the CLI is free of errors
+	
+MISCELLANEOUS REQUIREMENTS:
+	All data fields and methods within each class should have the appropriate public/private/
+	package/protected qualifier
+		-- Code CANNOT make things public that would allow a non-inheriting user to corrupt
+		   data -- EVEN IF OUR CODE DOES NOT DO THIS
+		   
+	For each nontrivial class besides ProofChecker.java, there should be a matching JUnit class
+			
