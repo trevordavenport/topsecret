@@ -21,6 +21,11 @@ public class LineNumber {
 		// added to our potential hashmap. Meaning we just need to input the correct op and exp from the 
 		// hashmap when determining the next line number.
 		
+		// if the operation is "print", do nothing
+		if (op.equals("print")) {
+			return myNumber;
+		}
+		
 		// if the operation is "show", then we are entering a subproof
 		if (op.equals("show")) {
 			expr.push(provenExpr); //changed to add the expr to the stack rather than the op
