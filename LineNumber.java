@@ -1,13 +1,14 @@
 public class LineNumber {
 
   private String myNumber;
-	private Stack<Expression> expr = new Stack<Expression>();
+  private Stack<Expression> expr;
 
 	public LineNumber(String num) {
 		myNumber = num;
+		expr = new Stack<Expression>();
 	}
 
-	public Linenumber nextlinenumber_helper(String op, Expression provenExpr){
+	public LineNumber nextlinenumber_helper(String op, Expression provenExpr){
 		// @line is the next proof line, read from InputSource
 		// This will return myNumber + 1 if line does not include "show"
 		// or the line does not prove a previous "show"s expression
