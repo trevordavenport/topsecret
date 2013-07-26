@@ -3,16 +3,17 @@ import java.util.*;
 public class Proof {
 	
 	LineNumber lastLineNumber;
-	LlinkedList myLinkedList;
+	LinkedList myLinkedList;
 	
 	private HashMap<LineNumber, LinkedList> myLineNumbers = new HashMap<LineNumber, LinkedList>();
 	
-  public Proof (TheoremSet theorems) {
+    public Proof (TheoremSet theorems) {
 	}
 
 	 
 	public LineNumber nextLineNumber ( ) { 
-		LineNumber valueholder = nextline_helper(myLineNumbers.get(lastLineNumber).getFirst(), myLineNumbers.get(lastLineNumber).getLast());
+		LineNumber valueholder = LineNumber.nextlinenumber_helper(myLineNumbers.get(lastLineNumber).getFirst(), 
+				myLineNumbers.get(lastLineNumber).getLast());
 		lastLineNumber = valueholder;
 		return valueholder;
 	}
