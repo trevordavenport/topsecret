@@ -7,18 +7,23 @@ public class LineNumber {
 		myNumber = num;
 	}
 
-	public LineNumber(String line){
+	public Linenumber nextlinenumber_helper(String op, Expression provenExpr){
 		// @line is the next proof line, read from InputSource
 		// This will return myNumber + 1 if line does not include "show"
 		// or the line does not prove a previous "show"s expression
 		// If it is a show, concatenate ".1" to the current line number
 
-		Scanner lineScanner = new Scanner(line); // line = "show (~~p=>p)"
-		String op = lineScanner.next( ); // op = "show"
-		provenExpr = lineScanner.next( ); // provenExpr = "(~~p=>p)"
+		//Scanner lineScanner = new Scanner(line); // line = "show (~~p=>p)"
+		//String op = lineScanner.next( ); // op = "show"
+		//provenExpr = lineScanner.next( ); // provenExpr = "(~~p=>p)"
+		
+		// Changed by VB, cause the line we are using to determine the next line has already been
+		// added to our potential hashmap. Meaning we just need to input the correct op and exp from the 
+		// hashmap when determining the next line number.
+		
 		// if the operation is "show", then we are entering a subproof
 		if (op.equals("show")) {
-			expr.push(op);
+			expr.push(provenExpr); //changed to add the expr to the stack rather than the op
 			myNumber = myNumber + ".1"; // 1 becomes 1.1
 			return myNumber;
 		}
