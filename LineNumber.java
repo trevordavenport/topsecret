@@ -77,6 +77,7 @@ public class LineNumber {
 				myNumber = (Integer.parseInt(myNumber) + 1).toString();
 			}
 		}
+		return myNumber;
 
 	}
 
