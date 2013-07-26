@@ -28,7 +28,25 @@ public class Logic {
 	}
 	
 	public static void assume(Expression exp1){
-		
+	// yay pseudo code. So I need to check if the exp1 is the myTree.myleft of the expression
+		// tied to the previous line number (its own line number with the last number taken off
+	int index;
+	String temp = myLine.myNumber;
+	if (temp.length()>1){
+		for (int i = myLine.myNumber.length()-1; i>0 ; i--){
+			if (myLine.myNumber.get(i) == "."){
+				index = i;
+				break;
+			}
+		}
+		temp = myLine.myNumber.substring(0, index);
+	}
+	Expression exp2 = hashmap.get(temp).get(1);
+	if(treeEquals(exp1, exp2.myTree.myLeft)){
+		exp1.isproven = true;
+	}else if(exp1.mystring.startsWith("~") && treeEquals(exp1.myTree, exp2.myTree)){
+		exp1.isproven = true;
+	}	
 	}
 	
 	public static void moduspolens (Expression exp1, Expression exp2, Expression test)
