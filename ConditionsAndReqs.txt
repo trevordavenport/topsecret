@@ -93,4 +93,16 @@ MISCELLANEOUS REQUIREMENTS:
 		   data -- EVEN IF OUR CODE DOES NOT DO THIS
 		   
 	For each nontrivial class besides ProofChecker.java, there should be a matching JUnit class
-			
+	
+NOTES ON REPEAT:
+	Syntax:
+		repeat <line # of shown expression> <matching expression to be shown>
+		
+		Ex.:
+		1 show (p=>p)
+		2 show (p=>p)
+		2.1 assume p
+		2.2 ic 2.1 (p=>p)
+		3 repeat 2 (p=>p)
+		
+		^ If the above example contained three "show (p=>p)" statements, 
