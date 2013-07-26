@@ -64,7 +64,7 @@ public class LineNumber {
 				// Convert the string to the right of the rightmost decimal to an integer
 				// increment it, convert it back to a string and concatenate to myNumber
 				int newRight = Integer.parseInt(myNumber.substring(index + 1, myNumber.length())) + 1; // newRight = "3"
-				myNumber = myNumber.substring(0, index + 1) + newRight.toString(); // myNumber.substring(0, index + 1) = "3."
+				myNumber = myNumber.substring(0, index + 1) + newRight + ""; // myNumber.substring(0, index + 1) = "3."
                 // myNumber = "3.3"
 
 			}
@@ -80,12 +80,12 @@ public class LineNumber {
 					}
 					// Convert the string to the right of the rightmost decimal to an integer
 					// increment it, convert it back to a string and concatenate to myNumber
-					int newRight = Integer.parseInt(myNumber.substring(index + 1, myNumber.length)) + 1;
-					myNumber += newRight.toString();
+					int newRight = Integer.parseInt(myNumber.substring(index + 1, myNumber.length())) + 1;
+					myNumber += newRight + "";
 			}
 			// If myNumber contains no decimals, simply increment it by 1
 			else {
-				myNumber = (Integer.parseInt(myNumber) + 1).toString();
+				myNumber = (Integer.parseInt(myNumber) + 1) + "";
 			}
 		}
 		return new LineNumber(myNumber);
