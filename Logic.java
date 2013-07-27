@@ -5,8 +5,17 @@
 //datamap
 
 
+import javax.swing.tree.TreeNode;
+
+
+// The methods associated with the different logical
+// inferences. Evaluating 
+
+//linemap
+//datamap
+
 public class Logic {
-  
+	
 	
 	public Logic(){
 		
@@ -22,32 +31,36 @@ public class Logic {
 		if(node1 == null && node2 == null){
 			return true;
 		}
-		if(!(node1.myItem.equals(node2.myItem))){
+		if(!(node1.myitem.equals(node2))){
 			return false;
 		}
 		return treeEqualshelper(node1.myLeft, node2.myLeft) && treeEqualshelper(node1.myRight, node2.myRight);
 	}
 	
-	public static void assume(Expression exp1){
-	// yay pseudo code. So I need to check if the exp1 is the myTree.myleft of the expression
+	public static void assume(Expression exp1, LineNumber myLine){
+		// yay pseudo code. So I need to check if the exp1 is the myTree.myleft of the expression
 		// tied to the previous line number (its own line number with the last number taken off
-	int index;
-	String temp = myLine.myNumber;
-	if (temp.length()>1){
-		for (int i = myLine.myNumber.length()-1; i>0 ; i--){
-			if (myLine.myNumber.get(i) == "."){
-				index = i;
-				break;
+		int index;
+		String temp = myLine.myNumber;
+		if (temp.length()>1){
+			for (int i = myLine.myNumber.length()-1; i>0 ; i--){
+				if (myLine.myNumber.get(i) == "."){
+					index = i;
+					break;
+				}
 			}
+			temp = myLine.myNumber.substring(0, index);
 		}
-		temp = myLine.myNumber.substring(0, index);
-	}
-	Expression exp2 = hashmap.get(temp).get(1);
-	if(treeEquals(exp1, exp2.myTree.myLeft)){
-		exp1.isproven = true;
-	}else if(exp1.mystring.startsWith("~") && treeEquals(exp1.myTree, exp2.myTree)){
-		exp1.isproven = true;
-	}	
+		Expression exp2 = hashmap.get(temp).get(1);
+		if(treeEquals(exp1, exp2.myTree.myLeft)){
+			exp1.isproven = true;
+		}else if(exp1.mystring.startsWith("~") && treeEquals(exp1.myTree, exp2.myTree)){
+			exp1.isproven = true;
+		}
+		//need to check if the previous line has a & or a |, in which case
+		//the only acceptable expression is the not of it. Otherwise the left hand statement 
+		//is A-Ok
+		
 	}
 	
 	public static void moduspolens (Expression exp1, Expression exp2, Expression test)
@@ -75,10 +88,10 @@ public class Logic {
 			if (treeEquals(myE2.myTree.myRight, test.myTree)){
 				test.isproven = true;
 			}else{
-				throw new IllegalLineException("Improper use of mp. " + test + " not in " + myE2);
+				throw new IllegalInferenceException("Improper use of mp. " + test + " not in " + myE2);
 			}
 		}else{
-			throw new IllegalLineException("Improper use of mp. " + myE1 + " not in " + myE2);
+			throw new IllegalInferenceException("Improper use of mp. " + myE1 + " not in " + myE2);
 		}
 		//if myE1 the exact same expression as immediately before the 
 		//implication in myE2: then "test.isproven = true"
