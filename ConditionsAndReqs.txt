@@ -66,6 +66,9 @@ they are:
 			Expressions MUST enclose all use of logical operators (&, |, =>) with
 			parentheses!
 			
+		MISC:
+			If the user simply hits enter, throw an IllegalLineException
+			
 LINE NUMBER REQUIREMENTS:
 	
 	LINE CONTINUATION:

@@ -29,7 +29,7 @@ public class LineNumber {
 		
 		// if the operation is "print", do nothing
 		if (op.equals("print")) {
-			return new LineNumber(myNumber);
+			return this;
 		}
 		
 		// if the operation is "show", then we are entering a subproof
