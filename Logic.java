@@ -21,7 +21,7 @@ public class Logic {
 		if(node1 == null && node2 == null){
 			return true;
 		}
-		if(!(node1.equals(node2))){
+		if(!(node1.myItem.equals(node2.myItem))){
 			return false;
 		}
 		return treeEqualshelper(node1.myLeft, node2.myLeft) && treeEqualshelper(node1.myRight, node2.myRight);
